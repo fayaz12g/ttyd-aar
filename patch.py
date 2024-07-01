@@ -2,7 +2,7 @@ import os
 import math
 from functions import *
 
-def pmtok_patch(patch_folder, ratio_value, scaling_factor, visual_fixes):
+def ttyd_patch(patch_folder, ratio_value, scaling_factor, visual_fixes):
 
     visual_fixesa = visual_fixes[0]
 
@@ -10,14 +10,14 @@ def pmtok_patch(patch_folder, ratio_value, scaling_factor, visual_fixes):
     ratio_value = float(ratio_value)
     print(f"The scaling factor is {scaling_factor}.")
     hex_value = make_hex(ratio_value, 1)
-    hex_value2, hex_value3 = pmtok_hex23(ratio_value)
-    version_variables = ["1.0.1"]
+    hex_value2, hex_value3 = ttyd_hex23(ratio_value)
+    version_variables = ["1.0.0"]
     for version_variable in version_variables:
         file_name = f"{version_variable}.pchtxt"
         file_path = os.path.join(patch_folder, file_name)
 
-        if version_variable == "1.0.1":
-            nsobidid = "E74395F066FD8CCB51EC17B39B3DA2C8CF520089"
+        if version_variable == "1.0.0":
+            nsobidid = "78F37BB55D015BE3B368EC22AF595455F1544DC1"
             visual_fix = visual_fixesa
             
 
@@ -27,14 +27,13 @@ def pmtok_patch(patch_folder, ratio_value, scaling_factor, visual_fixes):
 @flag offset_shift 0x100
 
 @enabled
-002665b8 {hex_value}
-0026a2c8 {hex_value2}
-0026a2d4 {hex_value3}
+002f25c8 {hex_value2}
+002f25cc {hex_value3}
 @stop
 
 {visual_fix}
 
-// Generated using PMTOK-AAR by Fayaz (github.com/fayaz12g/pmtok-aar)'''
+// Generated using ttyd-AAR by Fayaz (github.com/fayaz12g/ttyd-aar)'''
         os.makedirs(os.path.dirname(file_path), exist_ok=True)
         with open(file_path, 'w') as patch_file:
             patch_file.write(patch_content)

@@ -37,15 +37,15 @@ import pyautogui
 #### Create Window ####
 #######################
 
-tool_version = "1.1.0"
+tool_version = "1.0.0"
 
 root = customtkinter.CTk()
-root.title(f"Fayaz's Settings {tool_version} for Paper Mario: The Origami King")
+root.title(f"Fayaz's Settings {tool_version} for Paper Mario: The Thousand Year Door")
 root.geometry("540x760")
 
 customtkinter.set_appearance_mode("system")
 customtkinter.set_default_color_theme("blue")  
-windowtitle = customtkinter.CTkLabel(master=root, font=(CTkFont, 20), text="Fayaz's PMTOK Utility {tool_version}")
+windowtitle = customtkinter.CTkLabel(master=root, font=(CTkFont, 20), text="Fayaz's ttyd Utility {tool_version}")
 
 ###############################################
 ###########    GLOBAL SETTINGS      ###########
@@ -246,7 +246,7 @@ def create_mod():
     ratio_value = (int(numerator_entry.get()) / int(denominator_entry.get()))
     scaling_factor = (16/9) / (int(numerator_entry.get()) / int(denominator_entry.get()))
     username = getpass.getuser()
-    gameid = "0100A3900C3E2000"
+    gameid = "0100ECD018EBE000"
     if output_yuzu.get() is True:
         input_folder = f"C:/Users/{username}/AppData/Roaming/yuzu/load/{gameid}"
         process_name = "yuzu.exe"
@@ -281,25 +281,25 @@ def create_mod():
     if os.path.exists(text_folder):
         shutil.rmtree(text_folder)
 
-    # Download the PMTOK Layout Files
-    pmtok_download(input_folder, mod_name)
+    # # Download the ttyd Layout Files
+    # ttyd_download(input_folder, mod_name)
 
     # Create the PCHTXT Files
     visual_fixes = create_visuals(do_graphics_increase.get(), do_120fps.get(), do_60fps.get())
-    pmtok_patch(patch_folder, str(ratio_value), str(scaling_factor), visual_fixes)
+    ttyd_patch(patch_folder, str(ratio_value), str(scaling_factor), visual_fixes)
     ui_folder = os.path.join(input_folder, mod_name, "romfs", "ui")
 
     # Download and put Controlelr Files in Place
     # controller_files(controller_type.get(), theromfs_folder)
 
-    # Decomperss the .zst into .bfres
-    pmtok_extract(ui_folder)
+    # # Decomperss the .zst into .bfres
+    # ttyd_extract(ui_folder)
 
-    # Perform Pane Strecthing
-    pmtok_hud(str(ratio_value), HUD_pos, ui_folder)
+    # # Perform Pane Strecthing
+    # ttyd_hud(str(ratio_value), HUD_pos, ui_folder)
 
-    # Compress layout folders and delete them
-    pmtok_compress(ui_folder)
+    # # Compress layout folders and delete them
+    # ttyd_compress(ui_folder)
 
 
     if open_when_done.get() == True:
@@ -469,9 +469,9 @@ denominator_entry.configure(text_color='gray')
 denominator_entry.bind("<FocusIn>", lambda event: handle_focus_in(denominator_entry, f"{screen_height}"))
 denominator_entry.bind("<FocusOut>", lambda event: handle_focus_out(denominator_entry, f"{screen_height}"))
 
-graphics_checkbox = customtkinter.CTkCheckBox(master=notebook.tab("Visuals"), text="Use 1920x1080", variable=do_graphics_increase)
+graphics_checkbox = customtkinter.CTkCheckBox(master=notebook.tab("Visuals"), text="LOD Increase", variable=do_graphics_increase)
 fps60_checkbox = customtkinter.CTkCheckBox(master=notebook.tab("Visuals"), text="60 FPS", variable=do_60fps)
-fps120_checkbox = customtkinter.CTkCheckBox(master=notebook.tab("Visuals"), text="120 FPS (Expiremental)", variable=do_120fps)
+fps120_checkbox = customtkinter.CTkCheckBox(master=notebook.tab("Visuals"), text="3440x1440 Resolution", variable=do_120fps)
 
 # ##########################
 # ####### Controller #######
@@ -598,10 +598,12 @@ notebook.add("HUD")
 
 content_frame = customtkinter.CTkFrame(master=notebook.tab("HUD"))
 
-hud_label= customtkinter.CTkLabel(content_frame, text='Hud Location:')
+hud_label= customtkinter.CTkLabel(content_frame, text='Hud Location (Coming soon)')
 center_checkbox = customtkinter.CTkRadioButton(master=notebook.tab("HUD"), text="Center", variable=centered_HUD, value=1, command=lambda: [corner_HUD.set(False), repack_widgets])
 corner_checkbox = customtkinter.CTkRadioButton(master=notebook.tab("HUD"), text="Corner", variable=corner_HUD, value=2, command=lambda: [centered_HUD.set(False), repack_widgets])
 corner_checkbox.select()
+
+# notebook.delete("HUD")
 
 ########################
 ####### GENERATE #######
@@ -638,7 +640,7 @@ notebook.add("Credits")
 
 credits_label = ClickableLabel(master=notebook.tab("Credits"), text=
                     ('Utility created by fayaz\n'
-                     'https://github.com/fayaz12g/PMTOK-aar\n'
+                     'https://github.com/fayaz12g/ttyd-aar\n'
                      'ko-fi.com/fayaz12\n'
                      '\n\nWith special help from\n'
                      'Christopher Fields (cfields7)\n'

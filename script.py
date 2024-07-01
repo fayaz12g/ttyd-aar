@@ -10,7 +10,7 @@ def little_endian(hex_str):
     return ''.join(reversed([hex_str[i:i+2] for i in range(0, len(hex_str), 2)]))
 
 
-def pmtok_hud(ratio_value, HUD_pos, ui_folder):
+def ttyd_hud(ratio_value, HUD_pos, ui_folder):
     ratio_value = float(ratio_value)
     scale_factor = (16/9) / ratio_value
     ieee_hex = float_to_hex(scale_factor)
